@@ -75,9 +75,9 @@ Let's see a couple of examples.  Suppose that we are interested in the effect of
 
 The question is, do we need to add any more variables other than A and Y to the graph to make it a causal graph?  For example, you may be wondering about all these variables that are causes of Y, all the causes of a stroke that we know, like high blood pressure or coronary heart disease, diet, genes, and many, many others.  Shouldn't we add these variables to the graph?
 
-![Aspirin 2](fig/01_05_03.png)
+Well, let me ask you something-- do any of these variables affect assignment to Aspirin?  No, of course not.  This is a randomized trial.  The only reason why some people got Aspirin is because we flipped a coin and there was heads, not because they had heart disease or because they had high blood pressure.  Therefore, all those causes of Y cannot possibly be causes of A. *They are not common causes of Y and A, and therefore, we don't need to include them in the graph*.  The simple graph that has A arrow Y is a causal DAG, even if it does not include all those other causes of Y.
 
-Well, let me ask you something-- do any of these variables affect assignment to Aspirin?  No, of course not.  This is a randomized trial.  The only reason why some people got Aspirin is because we flipped a coin and there was heads, not because they had heart disease or because they had high blood pressure.  Therefore, all those causes of Y cannot possibly be causes of A.  They are not common causes of Y and A, and therefore, we don't need to include them in the graph.  The simple graph that has A arrow Y is a causal DAG, even if it does not include all those other causes of Y.
+![Aspirin 2](fig/01_05_03.png)
 
 Now consider a different situation.  Rather than having conducted a randomized trial, we did something very different.  We selected a large number of individuals and classified them into two groups according to the information in their electronic medical records.  In one group, we put everybody who started treatment with Aspirin, and in the other group, everybody who didn't start treatment with Aspirin.  So now A in our graph represents Aspirin use.  Again, the question is, do we need to add any variables other than A and Y to our graph to make it causal?
 
@@ -89,13 +89,9 @@ Therefore, coronary heart disease is a common cause of A and Y, and it should be
 
 ## Cause and Effect
 
-MIGUEL HERNAN: Why do we like causal graphs? After all, we have seen that
-causal graphs are simple pictures, that even a five year old can understand.
-How can they be so helpful to people conducting research? Well, causal DAGs
-are helpful because they are two things at the same time. On the one hand,
-they're **causal models**. They are qualitative causal models, but causal models. On *the other hand, they are **statistical models**. That is, they're models that represent associations and independencies between variables.
+MIGUEL HERNAN: Why do we like causal graphs? After all, we have seen that causal graphs are simple pictures, that even a five year old can understand. How can they be so helpful to people conducting research? Well, causal DAGs are helpful because they are two things at the same time. On the one hand, they're **causal models**. They are qualitative causal models, but causal models. On the other hand, they are **statistical models**. That is, they're models that represent associations and independencies between variables.
 
-That means that we can draw a causal graph using our expert knowledge, our causal knowledge, and at the same time, we are building a statistical model without knowing it.  And this dual nature is based on the fact that the causal effects imply associations.  And lack of causal effects imply independencies. And this is very important, because when we are conducting research we find biases. And these biases are associations.  Therefore, we can use causal graphs to conceptualize those biases and to identify them in our research.
+That means that we can draw a causal graph using our expert knowledge, our causal knowledge, and at the same time, we are building a statistical model without knowing it.  And this dual nature is based on the fact that the causal effects imply associations.  And lack of causal effects imply independencies. And this is very important, because when we are conducting research we find *biases*. And these biases are *associations*.  Therefore, we can use causal graphs to conceptualize those biases and to identify them in our research.
 
 OK, this may have sounded pretty abstract. There is a mathematical theory underlying causal graphs, but we don't need to master that theory in order to use causal graphs.  It's kind of like you don't need to know how a car works in order to ride it.  Later in this lesson we'll talk more about theory, but for now we are going to see how causal graphs work with examples, with informal examples.
 
@@ -111,15 +107,15 @@ To answer this question, suppose that we have a database with millions of people
 
 We can think about association in an equivalent way. We say that A and Y are associated when having information about A allows us to predict Y better on average.  And that is precisely what happens in our example. If we learn that someone is a cigarette smoker, then we will predict she has a risk of lung cancer that is greater than the average risk of cancer in the population.  And that's what I meant when I said that DAGs are both causal and statistical models.  Because if we use our expert knowledge to draw a causal graph, with no arrow from A to Y, then we are also drawing a statistical model that says that A and Y are independent, that they are not associated.
 
-And more generally, graph theory gives us a rule.  We can only exclude an
-association between A and Y if there is no arrow from A to Y. Informally, we can
-see the arrow between A and Y as a pipe.  A pipe that carries association right
-on water.  If the arrow is there, then a flow of association between A and Y is
-expected.
+And more generally, graph theory gives us a rule.
+
+> We can only exclude an association between A and Y if there is no arrow from A to Y.
+
+Informally, we can see the arrow between A and Y as a pipe.  A pipe that carries association right on water.  If the arrow is there, then a flow of association between A and Y is expected. 
 
 ![Flow of Association](fig/01_06_03.png)
 
-Let's now consider another question.  When we drew our graph, A arrow Y, we didn't include any variables between A and Y. But the effect of smoking A on lung cancer Y is obviously **mediated** by some variables.  For example, by the damage to the DNA of the cells of the lung that smoking causes.  So we could then have drawn a causal graph, A arrow B arrow Y, where B is cell damage.  And B, we say is a mediator of the effect of A on Y.  But we didn't do it.  We didn't include B on our graph.  And that's because *causal graphs do not need to include mediators when the goal is to estimate the total effect of A on Y*. If we needed information on mediators to estimate causal effects, then it will be impossible to estimate most causal effects.  Not even using randomized experiments, because we typically don't have any information on mediators in randomized experiments.
+Let's now consider another question.  When we drew our graph, A arrow Y, we didn't include any variables between A and Y. But the effect of smoking A on lung cancer Y is obviously **mediated** by some variables.  For example, by the damage to the DNA of the cells of the lung that smoking causes.  So we could then have drawn a causal graph, A arrow B arrow Y, where B is cell damage.  And B, we say is a **mediator** of the effect of A on Y.  But we didn't do it.  We didn't include B on our graph.  And that's because *causal graphs do not need to include mediators when the goal is to estimate the total effect of A on Y*. If we needed information on mediators to estimate causal effects, then it will be impossible to estimate most causal effects.  Not even using randomized experiments, because we typically don't have any information on mediators in randomized experiments.
 
 OK, but let's say that we decide to include the mediator B, cell damage, into our graph. This is the graph that we would draw if we believed that there is an effect of A on B, that there is an effect of B on Y, and that there is no direct effect of A on Y through pathways other than the A B Y pathway.  Again, this level of detail in the specification of the graph is unnecessary when we are interested in the total effect of A on Y.  But let's say that we have a graph with B. In this case, we can ask a new type of question. We can ask a question about **conditional independence**.  We can ask the question, are A and Y associated conditional on B or within levels of B?  Is there an association between A and Y, among individuals with a particular value of B? And to answer this question, we will need data on A, Y and of course, B. So suppose again that we have a database with millions of people and for each person we know whether they were cigarette smokers, whether they had cell damage, and whether they developed lung cancer.
 
@@ -172,13 +168,13 @@ and Y have a common cause, L, even if there is no arrow from A to Y.
 
 Informally, we can see that there is a flow of association between A and Y that is expected through L. Now let's say this again, because this simple graphic rule is related to confounding, and therefore very important for causal inference. The presence of a common cause of A and Y makes us expect an association between A and Y, even if A doesn't cause Y.
 
-Let's now move to questions about **conditional independence**. So far, we have considered the association between A and Y without conditioning on a third variable. That is, we have considered the unconditional, the marginal association between A and Y. We will now consider the conditional association between A and Y within levels of L. For example, is there an association between yellow fingers and lung cancer among never smokers?
+Let's now move to questions about **conditional independence**. So far, we have considered the association between A and Y without conditioning on a third variable. That is, we have considered the **unconditional**, the **marginal association** between A and Y. We will now consider the conditional association between A and Y within levels of L. For example, is there an association between yellow fingers and lung cancer among never smokers?
 
 To answer these questions, we need data on A, Y, and L. Suppose again we have a database with millions of people, and for each person we know whether they were cigarette smokers, whether they had yellow fingers, and whether they developed lung cancer. With this data, we can answer the question of whether A and Y are associated conditional on L. For example, we can restrict the analysis to the subset of individuals who are never smokers. Remember, we use a square box around a variable to indicate that we're conditioning on it.
 
 ![Conditional independence](fig/01_07_04.png)
 
-So now we can check in the subset of the population who are never smokers whether there is an isolation between A and Y. We just check whether the proportion of individuals with lung cancer is different among those with and without yellow fingers. If the proportions are different, we will say that there is an association between A and Y conditional on L where L is equal to never smoking. Another way to say this is that we will check whether A contains information not already included in L that allows us to predict Y better.
+So now we can check in the subset of the population who are never smokers whether there is an association between A and Y. We just check whether the proportion of individuals with lung cancer is different among those with and without yellow fingers. If the proportions are different, we will say that there is an association between A and Y conditional on L where L is equal to never smoking. Another way to say this is that we will check whether A contains information not already included in L that allows us to predict Y better.
 
 So if the correct DAG is one with arrows from L to A and L to Y, but no arrow from A to Y, do we expect to find an association between A, yellow fingers, and Y, lung cancer, in one particular level of L, never smokers? Well, according to this graph, the association between yellow fingers on cancer was a result of yellow fingers being a marker of smoking. Therefore if someone is a never smoker, learning that she has yellow fingers does not provide any additional information regarding the risk of Y.
 
@@ -246,7 +242,7 @@ More generally, the graph theory rule says that
 
 Informally, we can visualize a flow of association between A and Y through the condition on L. Let's say this again, because this simple graphical rule is related to selection bias, and therefore it is very important for a causal inference. In fact, we are going to have a full lesson on selection bias later. Conditioning on a common effect of A and Y makes us expect an association between A and Y even if A doesn't cause Y.
 
-Before, we said that L was a collider. You can see that colliders behave exactly the opposite as all other variables on graphs. When they are not conditioned on, they block the flow of association through the path that they are on. But when they are conditioned on, they do not block the flow of association. This graphical rule, about conditioning on common effects, applies to all common effects, whether they are colliders or they are not colliders.
+Before, we said that L was a collider. You can see that colliders behave exactly the opposite as all other variables on graphs. When they are not conditioned on, they block the flow of association through the path that they are on. But when they are conditioned on, they do not block the flow of association. This graphical rule, about conditioning on common effects, applies to *all* common effects, whether they are colliders or they are not colliders.
 
 For example, consider a DAG in which we add a variable S, with an arrow from L to S. Now S is a common effect of A and Y, but it's not a collider. S is the effect of the collider. For example, let's say that S is lung surgery, which is often a treatment for lung cancer.
 
@@ -260,20 +256,20 @@ MIGUEL HERNAN: In the previous segments we have studied three sources of associa
 
 ![Example](fig/01_09_01.png)
 
-Now there is another source of association that we didn't discuss: chance.  Because two variables may be associated by chance.  Even if one doesn't cause the other, even if they don't share causes, and if we don't condition on their common effects.  To see this, do you remember our example of a genetic factor A and environmental factor Y?  We said that we didn't expect them to be associated in our database of millions of people.  But suppose our database had only five people.  Three of them with a genetic factor A1.  And two of them without it, A0.  Say that by chance there was only one person with the environmental factor Y equals 1 in each group.  Then the proportion of individuals with Y equals 1 is different between those with A equals 1, one out of three, and those with A equals 0, one out of two.  So A and Y are associated by chance.
+Now there is another source of association that we didn't discuss: chance.  Because two variables may be associated by *chance*.  Even if one doesn't cause the other, even if they don't share causes, and if we don't condition on their common effects.  To see this, do you remember our example of a genetic factor A and environmental factor Y?  We said that we didn't expect them to be associated in our database of millions of people.  But suppose our database had only five people.  Three of them with a genetic factor A1.  And two of them without it, A0.  Say that by chance there was only one person with the environmental factor Y equals 1 in each group.  Then the proportion of individuals with Y equals 1 is different between those with A equals 1, one out of three, and those with A equals 0, one out of two.  So A and Y are associated by chance.
 
 ![Chance](fig/01_09_02.png)
 
-Chance is not a structural source of association, because we just need to increase the sample size to one million or one billion and chance associations decrease or disappear.  In contrast, the structural associations remain and become sharper as the sample size goes up.  But in practice, chance is very important.  In fact, it is so important that there's an entire scientific discipline in statistics that has been developed to quantify chance.  In this course, we are going to focus on the structure associations, which are the source of systematic bias.  And that means that we're always going to assume that we're working with a very large study population.  We won't have to worry about chance.  And we'll leave the statistical inference for another course.
+Chance is not a *structural source of association*, because we just need to increase the sample size to one million or one billion and chance associations decrease or disappear.  In contrast, the structural associations remain and become sharper as the sample size goes up.  But in practice, chance is very important.  In fact, it is so important that there's an entire scientific discipline in statistics that has been developed to quantify chance.  In this course, we are going to focus on the structure associations, which are the source of systematic bias.  And that means that we're always going to assume that we're working with a very large study population.  We won't have to worry about chance.  And we'll leave the statistical inference for another course.
 
 So back to our structural sources of association.  We have cause and effect.  We have common causes and we have conditioning on common effects.  We have studied these three causal structures and their consequences for associations using informal examples in the past three segments.  But there is a formal theory of causal DAGs.  This theory of causal DAGs has been mathematically formalized by Judea Pearl at UCLA and Spirtes, Glymour and Scheines from Carnegie Mellon.  So let's talk a little bit about this graph theory.
 
-First, how things are named.  Well, a variable B that is affected by a variable A is known as a descendant of A. So B can be a child of A or a grandchild of A.  And conversely, A is a parent or a grandparent
+First, how things are named.  Well, a variable B that is affected by a variable A is known as a *descendant* of A. So B can be a child of A or a grandchild of A.  And conversely, A is a parent or a grandparent
 of B.
 
 ![Parents](fig/01_09_03.png)
 
-Another important concept in graph theory is the concept of path.  A path is any arrow-based route between two variables on the graph.  So some paths follow the direction of the arrows.  And other paths do not follow the direction of the arrows.  And paths can be either blocked or open.  And they are blocked or open according to a set of graphical rules known as the D-separation rules.
+Another important concept in graph theory is the concept of **path**.  A path is *any* arrow-based route between two variables on the graph.  So some paths follow the direction of the arrows.  And other paths *do not* follow the direction of the arrows.  And paths can be either blocked or open.  And they are blocked or open according to a set of graphical rules known as the D-separation rules.
 
 ![Paths](fig/01_09_04.png)
 
@@ -311,11 +307,11 @@ A collider that has a descendant that has been conditioned on does not block a p
 
 ![Rule 4](fig/01_09_10.png)
 
-The summary of these D-separation rules is that a path is blocked if, and only if, it contains a noncollider that has been conditioned on, or a collider that has not been conditioned on and has no descendant that had been conditioned on.  So
+The summary of these D-separation rules is that
 
-- two variables are D-separated if all paths between them are blocked and
-- two variables are marginally or unconditionally independent if they are D-separated without conditioning on all the variables.  On the other hand, we say that
-- two variables are conditionally independent, even a set variables L, if they are D-separated after conditioning on the variables L.
+> A path is blocked if, and only if, it contains a noncollider that has been conditioned on, or a collider that has not been conditioned on and has no descendant that had been conditioned on.
+
+So two variables are D-separated if all paths between them are blocked and two variables are marginally or unconditionally independent if they are D-separated without conditioning on all the variables.  On the other hand, we say that two variables are conditionally independent, even a set variables L, if they are D-separated after conditioning on the variables L.
 
 So now we have seen the rules of the D-separation in an explicit way. But if you go back to the examples for the last three segments, you will be able to see that all D-separation says is that two variables would be associated if one causes the other, if they share common causes, or they have a common effect and we condition on the common effect. So we have actually been using D-separation for the past three segments.
 
@@ -339,99 +335,33 @@ Now these perfect cancellations of effects are probably rare in nature. So we do
 
 MIGUEL HERNAN: We're now ready to go back to the 1970s. In the previous segments we have learned simple graphical tools to resolve the controversy that we described at the start of this lesson. As we said, the association between estrogens and endometrial cancer was well established in the 1970s. At that time, it was established that women taking estrogens had a higher incidence of endometrial cancer diagnoses than women not taking estrogens. And there were two possible explanations for that association between estrogens and cancer diagnosis. One, estrogens actually cause cancer. Two, estrogens accelerate the diagnosis of silent cancer. Because estrogens increase the risk of uterine bleeding, which leads to diagnostic efforts that would not have happened otherwise. These two explanations have very different implications for clinical practice and for public health. So let's draw causal graphs now to represent each of these explanations.
 
-The first explanation, estrogens cause cancer,
-can be represented by a causal graph with three binary variables.
-A, estrogens, U, endometrial cancer, which is an unmeasured variable,
-and Y, diagnosis of endometrial cancer, which is a measured variable.
-That means that we have data on A and Y, but we don't have data on U.
-The second explanation, estrogens accelerate
-the diagnoses of silent cancer, can be represented
-by a causal graph with one additional binary available, C, uterine bleeding.
-And there are arrows from A to C, because estrogens cause bleeding;
-from U to C, because cancer causes bleeding; and from C to Y,
-because bleeding accelerate the diagnosis of cancer.
-But there is no arrow from A to U. The question is
-how to distinguish between these two explanations for the association
-between A and Y. Estrogens cause cancer, estrogens accelerate the cancer
-diagnosis.
+The first explanation, estrogens cause cancer, can be represented by a causal graph with three binary variables. A, estrogens, U, endometrial cancer, which is an unmeasured variable, and Y, diagnosis of endometrial cancer, which is a measured variable. That means that we have data on A and Y, but we don't have data on U.
 
-To answer this question, two investigators from Yale
-proposed to restrict the data analysis to women
-who bleed, whether they are taking estrogens or not.
-That way, all women in the analysis, regardless of estrogens use,
-will have the same risk of having silent cancers diagnosed.
-If we still find an association between estrogen use and cancer,
-it must be that estrogens cause cancer.
-But as you may remember, several investigators from Boston and Harvard
-disagreed.
-They argued that an association between estrogen use and cancer diagnosis
-can arise in analyses restricted to women who bleed,
-even if estrogens don't cause cancer.
-Who was right?
-Well, now we can use graph theory to analyze both proposals
-and resolve the controversy.
-Here we are going to follow Jamie Robins, who
-in 2001 showed how to apply this separation to this [INAUDIBLE]..
-First, we need to translate the Yale investigator's proposal from English
-into DAG-ish.
-Ready?
-Let's go.
-This is the graphical description of the argument to restrict analysis
-to women who bleed.
-The association between A and Y that we would like to eliminate
-is due to the path A arrow C arrow Y.
-Let's block that path by restricting the studies to women who bleed.
-That is, we put a square around C. Now if an association between A and Y
-is still found, it must be that there is a path arrow U arrow
-Y. Seems to make a lot of sense.
-So why did the Boston investigators disagree?
-They argued that an association between A and Y may exist,
-even when we condition on C. Even if there is no arrow from A to Y to U. How
-is that possible?
-Well, let's look at the entire causal graph.
-It is true that conditioning on C blocks the path A, C, Y.
-But that's not the only path between A and Y.
-There is another path that is A, C, U, Y. And on that path, C is a collider.
-So the path is blocked when we don't condition on C,
-but becomes open when we condition on C.
-And conditioning on C is precisely what we
-do when we restrict the analysis to women who bleed.
-So the Boston investigators were correct.
-A and Y may still be associated when we restrict the analysis to bleeders.
-Even if A does not cause cancer U.
-So by applying this separation to this DAG,
-we learn that an analysis restricted to women
-who bleed does not necessarily help us distinguish between the two
-explanations for the association between A and Y. What can we do then?
-Let's look at the graph again.
-See, the path that is causing trouble is the path A arrow C
-arrow Y. This path has two arrows.
-And there's nothing we can do about the arrow from estrogens A to bleeding C,
-because that's human physiology.
-But we could design studies in which the arrow from C to Y does not exist.
-For example, by requiring all women in the study to be
-screened for cancer frequently, whether they bleed or not.
-So if we design a study in which there is no arrow from C to Y by design,
-and we don't condition on C, we don't have
-to restrict now to women who bleed.
-If in this study we don't find an association between A and Y,
-then we learn that there is no arrow from estrogens A to cancer U.
-We have ruled out the explanation that estrogens cause cancer.
-On the other hand, if after doing this, after removing the arrow from C to Y,
-we still find an association between A and Y,
-then it must be the case that A causes U.
-And this is an example of how causal graphs can
-be used to understand a problem and explore possible solutions.
-We, of course, oversimplified this a little bit, but just enough
-to show the main points.
-And one of those main points is that even
-without mastering the mathematical theory underlying DAGs,
-we can translate our qualitative subject knowledge,
-expert knowledge, causal knowledge, into a picture, into a causal graph.
-And this picture can then be used to identify problems in the study design
-and to guide the data analysis.
-And also to make the scientific discussion
-much more precise and efficient.
-Rather than writing many pages describing our assumptions,
-we can just draw a picture that represents them.
-So as I said at the start of this lesson, causal graphs are your friends.
+The second explanation, estrogens accelerate the diagnoses of silent cancer, can be represented by a causal graph with one additional binary available, C, uterine bleeding. And there are arrows from A to C, because estrogens cause bleeding; from U to C, because cancer causes bleeding; and from C to Y, because bleeding accelerate the diagnosis of cancer. But there is no arrow from A to U. 
+
+![Explanations](fig/01_10_01.png)
+
+The question is how to distinguish between these two explanations for the association between A and Y. Estrogens cause cancer, estrogens accelerate the cancer diagnosis. To answer this question, two investigators from Yale proposed to restrict the data analysis to women who bleed, whether they are taking estrogens or not. That way, all women in the analysis, regardless of estrogens use, will have the same risk of having silent cancers diagnosed. If we still find an association between estrogen use and cancer, it must be that estrogens cause cancer.
+
+But as you may remember, several investigators from Boston and Harvard disagreed. They argued that an association between estrogen use and cancer diagnosis can arise in analyses restricted to women who bleed, even if estrogens don't cause cancer. Who was right? Well, now we can use graph theory to analyze both proposals and resolve the controversy. Here we are going to follow Jamie Robins, who in 2001 showed how to apply this separation to this very issue.
+
+First, we need to translate the Yale investigator's proposal from English into DAG-ish. Ready? Let's go. This is the graphical description of the argument to restrict analysis to women who bleed. The association between A and Y that we would like to eliminate is due to the path A arrow C arrow Y. Let's block that path by restricting the studies to women who bleed. That is, we put a square around C.
+
+![Expl 1](fig/01_10_02.png)
+
+Now if an association between A and Y is still found, it must be that there is a path arrow U arrow Y.
+
+![Expl 1b](fig/01_10_03.png)
+
+Seems to make a lot of sense. So why did the Boston investigators disagree? They argued that an association between A and Y may exist, even when we condition on C. Even if there is no arrow from A to Y to U. How is that possible? Well, let's look at the entire causal graph.
+
+![Complete Graph](fig/01_10_04.png)
+
+It is true that conditioning on C blocks the path A, C, Y. But that's not the only path between A and Y. There is another path that is A, C, U, Y. And on that path, C is a collider. So the path is blocked when we don't condition on C, but becomes open when we condition on C. And conditioning on C is precisely what we do when we restrict the analysis to women who bleed. So the Boston investigators were correct. A and Y may still be associated when we restrict the analysis to bleeders. Even if A does not cause cancer U.
+So by applying this separation to this DAG, we learn that an analysis restricted to women who bleed does not necessarily help us distinguish between the two explanations for the association between A and Y. What can we do then? Let's look at the graph again.
+
+![Complete Graph 2](fig/01_10_05.png)
+
+See, the path that is causing trouble is the path A arrow C arrow Y. This path has two arrows. And there's nothing we can do about the arrow from estrogens A to bleeding C, because that's human physiology. But we could design studies in which the arrow from C to Y does not exist. For example, by requiring all women in the study to be screened for cancer frequently, whether they bleed or not. So if we design a study in which there is no arrow from C to Y by design, and we don't condition on C, we don't have to restrict now to women who bleed. If in this study we don't find an association between A and Y, then we learn that there is no arrow from estrogens A to cancer U. We have ruled out the explanation that estrogens cause cancer. On the other hand, if after doing this, after removing the arrow from C to Y, we still find an association between A and Y, then it must be the case that A causes U.
+
+And this is an example of how causal graphs can be used to understand a problem and explore possible solutions. We, of course, oversimplified this a little bit, but just enough to show the main points. And one of those main points is that even without mastering the mathematical theory underlying DAGs, we can translate our qualitative subject knowledge, expert knowledge, causal knowledge, into a picture, into a causal graph. And this picture can then be used to identify problems in the study design and to guide the data analysis. And also to make the scientific discussion much more precise and efficient. Rather than writing many pages describing our assumptions, we can just draw a picture that represents them. So as I said at the start of this lesson, causal graphs are your friends.
